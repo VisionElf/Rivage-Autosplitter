@@ -1,4 +1,4 @@
-# Rivage autosplitter reference
+# Rivage autosplitter technical reference
 
 `Rivage.asl` provides these signals for the verified Steam build:
 

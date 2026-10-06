@@ -1,6 +1,6 @@
 /*
 Rivage: New Game start, native load removal, optional pickups/drawings, final Pod opening.
-Supported executable and live validation are documented in Rivage.md.
+Supported executable and validation are documented in docs/Technical-reference.md.
 All process access is read-only. No automatic reset.
 Developed by Codex, under the supervision of VisionElf.
 */

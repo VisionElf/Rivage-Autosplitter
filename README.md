@@ -24,7 +24,7 @@ Configure settings before selecting New Game.
   the Lobby decoded map, the Laboratory drawing and the Horizon probe projection.
 - Continue and mid-game attachment do not auto-start. Reset the timer manually.
 
-Only the Steam executable documented in [the technical guide](docs/Rivage.md)
+Only the Steam executable documented in [the technical reference](docs/Technical-reference.md)
 is supported. Unknown hashes are rejected; offsets require verification after
 game updates. See that guide for settings and memory signals.
 
