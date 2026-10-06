@@ -30,10 +30,13 @@ game updates. See that guide for settings and memory signals.
 
 ## Automatic releases
 
-Pushing to `main` triggers [the release workflow](.github/workflows/release.yml).
+Pushing changes to `Rivage.asl` or the release workflow on `main` triggers
+[an automatic release](.github/workflows/release.yml). Documentation, test and
+support-only changes do not trigger releases.
 It publishes `Rivage.asl` and its SHA-256 checksum in a release tagged with the
 source commit. Re-running a workflow updates that commit's release. The release
-for the current `main` commit is marked **Latest**. A manual run is also available
+whose script matches the current `main` script is marked **Latest**, even if
+documentation commits have since advanced `main`. A manual run is also available
 from the Actions tab on `main`.
 
 The stable download address for the LiveSplit catalogue is:

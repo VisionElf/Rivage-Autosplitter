@@ -3,6 +3,9 @@ name: Release autosplitter
 on:
   push:
     branches: [main]
+    paths:
+      - Rivage.asl
+      - .github/workflows/release.yml
   workflow_dispatch:
 
 permissions:
@@ -54,7 +57,8 @@ jobs:
               --notes-file release-notes.md --latest=false
           fi
 
-          main_sha=$(gh api "repos/${GH_REPO}/git/ref/heads/main" --jq '.object.sha')
-          if [[ "$main_sha" == "$GITHUB_SHA" ]]; then
+          main_script_sha=$(gh api "repos/${GH_REPO}/contents/Rivage.asl?ref=main" --jq '.sha')
+          release_script_sha=$(git hash-object Rivage.asl)
+          if [[ "$main_script_sha" == "$release_script_sha" ]]; then
             gh release edit "$RELEASE_TAG" --latest
           fi
