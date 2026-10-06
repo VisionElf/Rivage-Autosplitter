@@ -38,10 +38,19 @@ jobs:
           cat > release-notes.md <<EOF
           ASL autosplitter for the supported Windows Steam build of Rivage.
 
-          Source commit: ${GITHUB_SHA}
+          ## Changes
+
+          This automated release packages the script from commit ${GITHUB_SHA}.
+          [View the source changes](https://github.com/${GH_REPO}/commit/${GITHUB_SHA}).
+
+          ## Installation and start setting
+
           Download Rivage.asl and load it in LiveSplit.
-          Start: After Cutscene selects the second New Game loading-end start.
-          See the repository README for supported builds and validation status.
+          The following is a reminder of existing behavior, not a change in this release:
+          - Start: After Cutscene unchecked (default): start after the first New Game loading screen closes.
+          - Start: After Cutscene checked: start after the second loading screen closes, following the introduction or its skip.
+
+          See the repository README for installation, supported builds and validation status.
 
           Developed by Codex, under the supervision of VisionElf.
           EOF
