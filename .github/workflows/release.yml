@@ -36,7 +36,7 @@ jobs:
           ASL autosplitter for the supported Windows Steam build of Rivage.
 
           Source commit: ${GITHUB_SHA}
-          Download Rivage.asl and load it in LiveSplit or SpeedTimer.
+          Download Rivage.asl and load it in LiveSplit.
           Start: After Cutscene selects the second New Game loading-end start.
           See the repository README for supported builds and validation status.
 

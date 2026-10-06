@@ -56,7 +56,7 @@ when New Game is detected, then counts completed MoviePlayer loading screens.
 Each screen counts once when its active state becomes inactive; repeated samples
 during a screen or the introduction do not increment the count. This option
 starts the timer; it does not advance a segment. Subsequent loading screens
-continue to pause only Game Time. LiveSplit and SpeedTimer use the same setting.
+continue to pause only Game Time.
 
 ## Optional card splits
 
@@ -221,7 +221,7 @@ first readable sample where both loading-screen fields are inactive, or after
 the second such screen when **Start: After Cutscene** is enabled. The screen
 may become active after the menu exit. The native flag's two-second tail does not
 delay the start. This common ASL start action starts both timing methods in
-LiveSplit and SpeedTimer. The introduction is timed with the default start;
+LiveSplit. The introduction is timed with the default start;
 **Start: After Cutscene** excludes it. Once the timer starts, subsequent loads pause
 only Game Time.
 

@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using SpeedTimer.AslHost;
+using Rivage.AslHost;
 
 internal static class RivageReaderFixture
 {

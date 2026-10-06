@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using SpeedTimer.AslHost;
+using Rivage.AslHost;
 
 internal static class RivageDrawingTests
 {

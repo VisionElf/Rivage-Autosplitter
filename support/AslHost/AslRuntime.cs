@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace SpeedTimer.AslHost;
+namespace Rivage.AslHost;
 
 public sealed class HostRequest
 {

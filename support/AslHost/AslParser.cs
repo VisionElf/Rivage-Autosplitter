@@ -1,7 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace SpeedTimer.AslHost;
+namespace Rivage.AslHost;
 
 public record PointerField(string Type, string Name, string? Module, long[] Offsets);
 public record StateDescriptor(string Process, string Version, List<PointerField> Fields);

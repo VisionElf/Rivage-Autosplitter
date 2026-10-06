@@ -4,7 +4,7 @@ using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace SpeedTimer.AslHost;
+namespace Rivage.AslHost;
 
 public abstract class ScriptBase
 {
@@ -35,7 +35,7 @@ public static class ScriptCompiler
 {
     public static ScriptBase Compile(AslDocument document)
     {
-        var code = "using System; using System.Linq; using System.Collections.Generic; using System.Diagnostics; using System.Dynamic; using SpeedTimer.AslHost; public sealed class LoadedScript : ScriptBase {\n";
+        var code = "using System; using System.Linq; using System.Collections.Generic; using System.Diagnostics; using System.Dynamic; using Rivage.AslHost; public sealed class LoadedScript : ScriptBase {\n";
         foreach (var (name, body) in document.Actions)
         {
             var result = new[] { "startup", "init", "exit", "shutdown" }.Contains(name) ? "void" : name == "gameTime" ? "TimeSpan?" : "bool?";

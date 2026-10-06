@@ -1,4 +1,4 @@
-namespace SpeedTimer.AslHost;
+namespace Rivage.AslHost;
 
 public sealed class Setting(string id, bool value, string label, string? parent)
 {

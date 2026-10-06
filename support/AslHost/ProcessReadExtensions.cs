@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace SpeedTimer.AslHost;
+namespace Rivage.AslHost;
 
 // Read-only subset of LiveSplit.ComponentUtil's Process extension API.
 public static class ProcessReadExtensions

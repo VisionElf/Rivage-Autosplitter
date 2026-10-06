@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 
-namespace SpeedTimer.AslHost;
+namespace Rivage.AslHost;
 
 public sealed class ProcessMemory : IDisposable
 {

@@ -1,7 +1,7 @@
 # Rivage Autosplitter
 
 Auto Start, load removal and configurable splits for the supported Windows Steam
-build of Rivage. The same ASL script works with LiveSplit and SpeedTimer.
+build of Rivage, written as an ASL script for LiveSplit.
 
 ## Installation
 
@@ -11,8 +11,7 @@ In LiveSplit, add **Control → Scriptable Auto Splitter** in **Edit Layout**,
 then select the script in its settings. Enable Start and Split, select Game Time
 for load removal, and save the layout.
 
-In SpeedTimer, load the script in the run's Autosplitter tab and enable Auto Start
-and Auto Split. Configure settings before selecting New Game.
+Configure settings before selecting New Game.
 
 ## Features
 
@@ -55,7 +54,7 @@ See [LiveSplit catalogue submission](docs/LiveSplit-submission.md) and the
 
 `Rivage.asl` is the distributable source; users do not need a compiler or DLL.
 `tests/` contains the Rivage regression suites. `support/AslHost/` contains the
-minimal ASL host extracted from SpeedTimer for those suites; LiveSplit does not
+minimal ASL test host for those suites; LiveSplit does not
 download or use this support library.
 
 To run the suites on Windows with the .NET 10 SDK:
@@ -69,9 +68,6 @@ the host's game-attachment polling method and do not prove compatibility with
 the actual LiveSplit component. No tests were run during repository preparation.
 The first-loading-screen start was confirmed working by VisionElf; the
 after-cutscene option still requires manual verification.
-
-This standalone repository originated in SpeedTimer. Its original project copy
-is not automatically synchronized with changes here.
 
 ## Credits and licence
 
