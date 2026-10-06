@@ -1,0 +1,60 @@
+name: Release autosplitter
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the pushed commit
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Publish the ASL script
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test -s Rivage.asl
+          export RELEASE_TAG="main-${GITHUB_SHA}"
+          sha256sum Rivage.asl > Rivage.asl.sha256
+          cat > release-notes.md <<EOF
+          ASL autosplitter for the supported Windows Steam build of Rivage.
+
+          Source commit: ${GITHUB_SHA}
+          Download Rivage.asl and load it in LiveSplit or SpeedTimer.
+          Start: After Cutscene selects the second New Game loading-end start.
+          See the repository README for supported builds and validation status.
+
+          Developed by Codex, under the supervision of VisionElf.
+          EOF
+
+          existing_tag=$(gh api --paginate "repos/${GH_REPO}/releases" \
+            --jq ".[] | select(.tag_name == \"${RELEASE_TAG}\") | .tag_name")
+          if [[ "$existing_tag" == "$RELEASE_TAG" ]]; then
+            gh release upload "$RELEASE_TAG" Rivage.asl Rivage.asl.sha256 --clobber
+            gh release edit "$RELEASE_TAG" --draft=false --notes-file release-notes.md
+          else
+            gh release create "$RELEASE_TAG" Rivage.asl Rivage.asl.sha256 \
+              --target "$GITHUB_SHA" --title "Rivage Autosplitter (${GITHUB_SHA:0:7})" \
+              --notes-file release-notes.md --latest=false
+          fi
+
+          main_sha=$(gh api "repos/${GH_REPO}/git/ref/heads/main" --jq '.object.sha')
+          if [[ "$main_sha" == "$GITHUB_SHA" ]]; then
+            gh release edit "$RELEASE_TAG" --latest
+          fi

@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+*.log
+.vs/
+.env
+.env.*
+*.user
+*.suo
+*.pdb
+*.dll
+*.exe
+release-notes.md
+Rivage.asl.sha256
