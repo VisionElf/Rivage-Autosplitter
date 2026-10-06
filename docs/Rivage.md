@@ -1,4 +1,4 @@
-# Rivage autosplitter
+# Rivage autosplitter reference
 
 `Rivage.asl` provides these signals for the verified Steam build:
 
@@ -21,21 +21,22 @@
 - Optionally split when the Horizon probe projects its code on the wall after
   the six-note pad sequence.
 
-Card, fingerprint, drawing and projection splits are disabled by default. There are no automatic
-resets or category options.
+Card, fingerprint, drawing and projection splits are disabled by default.
+There are no automatic resets or category options.
 
 ## Setup
 
-1. Load `Rivage.asl` in the run's Autosplitter tab.
+1. Add **Control → Scriptable Auto Splitter** in LiveSplit's **Edit Layout**,
+   then select `Rivage.asl` in the component settings.
 2. Select **Game Time** to display time with loading removed.
-3. Enable **Auto Start** and **Auto Split** before starting a run.
+3. Enable **Start** and **Split** in the component settings before starting a run.
 4. Enable the individual card, fingerprint, drawing and projection splits you want, then add matching
    segments in your route order followed by the final Pod segment. With no pickup
    options enabled, use one final segment or advance intermediate segments manually.
 5. Leave the script attached at the main menu before selecting New Game.
 
-After updating the script, use **Reload autosplitter** while the timer is reset to
-apply the new source and expose any new options.
+Save the layout to retain the script path and settings. After replacing the
+script, reload it in LiveSplit with the timer reset to apply the new source.
 
 Continue and attachment during an existing game do not start the timer. Attaching
 during the final sequence, including while it is paused, does not split
@@ -60,7 +61,8 @@ continue to pause only Game Time.
 
 ## Optional card splits
 
-The eight checkboxes appear in this order. Each is independent: for example, Pod
+The eight card checkboxes follow the start setting in this order. Each is
+independent: for example, Pod
 Bay Access can be selected while the Level 1 card split is disabled.
 
 | Setting | Inventory row |
@@ -83,7 +85,7 @@ New Game rearms the card signals for the next attempt.
 
 The game's save data and item table were inspected to identify these eight row
 names. The script reads the live inventory, not saved progress or localized text.
-The app's global Automatic splits toggle still applies. The final Pod opening
+LiveSplit's **Split** checkbox still applies. The final Pod opening
 takes priority if it coincides with a card event.
 
 ## Optional Jonny fingerprint split
@@ -97,8 +99,8 @@ split. The fingerprint and Jonny's level card are separate options.
 An already complete fingerprint on attachment, after loading, or after an
 unreadable or replaced inventory establishes a baseline without splitting.
 Replacing fragments and completing the fingerprint again cannot duplicate the
-split. New Game rearms it for the next attempt. The global Automatic splits
-toggle still applies, and the final Pod opening takes priority. A simultaneous
+split. New Game rearms it for the next attempt. LiveSplit's **Split** checkbox
+still applies, and the final Pod opening takes priority. A simultaneous
 card pickup and fingerprint completion emit one split each on consecutive ticks.
 
 ## Optional drawing and projection splits
@@ -122,7 +124,7 @@ Each drawing or projection splits once per attempt. Attachment with its display 
 reader recovery, replaced objects and restored loading/menu states establish a
 baseline without splitting. Reopening the drawing does not duplicate its split.
 New Game rearms all three options. Configure options before starting the attempt and
-add their segments in your route order. The global Automatic splits toggle applies.
+add their segments in your route order. LiveSplit's **Split** checkbox applies.
 The final Pod split takes priority; simultaneous drawing and pickup events are
 emitted on consecutive ticks.
 
@@ -159,7 +161,7 @@ All offsets below are hexadecimal. `GEngine` is at executable + `0x939A830`, and
 
 | Owner | Offset | Signal |
 | --- | --- | --- |
-| GlobalInstance | `0x263` | Native transition flag for Auto Start; has a two-second tail |
+| GlobalInstance | `0x263` | Native transition flag used to arm New Game detection; has a two-second tail |
 | GlobalInstance | `0x3C0` | `IsMainMenu` |
 | GlobalInstance | `0x2E8` | `BPSaveGame` |
 | BP_SaveGame | `0x28` | `NbrLoopSave`, initially `-1` for New Game |
@@ -220,8 +222,8 @@ the script then requires an active MoviePlayer loading screen and starts on the
 first readable sample where both loading-screen fields are inactive, or after
 the second such screen when **Start: After Cutscene** is enabled. The screen
 may become active after the menu exit. The native flag's two-second tail does not
-delay the start. This common ASL start action starts both timing methods in
-LiveSplit. The introduction is timed with the default start;
+delay the start. The ASL start action starts both timing methods in LiveSplit.
+The introduction is timed with the default start;
 **Start: After Cutscene** excludes it. Once the timer starts, subsequent loads pause
 only Game Time.
 
@@ -239,8 +241,9 @@ Successful opening is latched until the main menu or a new GameInstance.
 
 The script performs bounded pointer reads at 60 Hz. It does not scan the process,
 global object array, levels or actors during normal polling. Unreadable game or
-loading-screen state pauses Game Time through the ASL host; unavailable ending
-data disarms the final signal without affecting timing. Neither manufactures transitions.
+loading-screen state discards transition history and cancels a pending start.
+Unavailable ending data disarms the final signal without changing the loading
+sample. Reader recovery cannot manufacture a start or ending transition.
 
 When any card option is enabled, the reader resolves at most 256 inventory FNames
 (8 bytes each), validates the array bounds and checks that its header stays stable
@@ -281,5 +284,5 @@ actual LiveSplit component. From the repository root, use:
 dotnet run --project tests/Rivage.Tests.csproj
 ```
 
-This ASL script has no WASM build step and requires no Tauri application rebuild.
+This ASL script is loaded directly by LiveSplit and has no standalone build step.
 Developed by Codex, under the supervision of VisionElf.
